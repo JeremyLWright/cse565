@@ -20,7 +20,7 @@ int main(int argc, const char *argv[])
         selection_sort(std::begin(vs), std::end(vs));
         assert(std::is_sorted(std::begin(vs), std::end(vs)));
         if(i %100000 == 0)
-            std::cout << static_cast<double>(i)/n << "%% complete\n";
+            std::cout << static_cast<double>(i)/n*100 << "%% complete\n";
     }
     return 0;
 }
