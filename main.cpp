@@ -12,10 +12,10 @@ int main(int argc, const char *argv[])
     std::uniform_int_distribution<int> element_dist(0, limits.max());
    
     size_t n = 100000000;
+    auto f = [&](){return element_dist(engine);};
     for(size_t i = 0; i < n; ++i)
     {
         std::vector<int> vs;
-        auto f = [&](){return element_dist(engine);};
         std::generate_n(std::back_inserter(vs), range_dist(engine), f);
         selection_sort(std::begin(vs), std::end(vs));
         assert(std::is_sorted(std::begin(vs), std::end(vs)));
