@@ -5,15 +5,15 @@
 #include <random>
 #include <limits>
 #include <cassert>
+#include <iostream>
 
 class RandomizedTest : public testing::TestWithParam<std::vector<int>> {};
-TEST_P(RandomizedTest, Randomized)
+TEST_P(RandomizedTest, Sorting)
 {
     auto vs = GetParam();
     selection_sort(std::begin(vs), std::end(vs));
     ASSERT_TRUE(std::is_sorted(std::begin(vs), std::end(vs)));
 }
-
 
 std::vector<std::vector<int>> GenerateTestCases()
 {
@@ -21,7 +21,7 @@ std::vector<std::vector<int>> GenerateTestCases()
     std::numeric_limits<int> limits;
 
     std::mt19937 engine(time(0)); // Fixed seed of 0
-    std::uniform_int_distribution<int> range_dist(0,150);
+    std::uniform_int_distribution<int> range_dist(0,1500);
     std::uniform_int_distribution<int> element_dist(0, limits.max());
 
     size_t n = 10000;
