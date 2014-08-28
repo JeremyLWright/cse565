@@ -7,7 +7,9 @@
 #include <cassert>
 #include <iostream>
 
-class RandomizedTest : public testing::TestWithParam<std::vector<int>> {};
+using TestInput = std::vector<int>;
+
+class RandomizedTest : public testing::TestWithParam<TestInput> {};
 TEST_P(RandomizedTest, Sorting)
 {
     auto vs = GetParam();
@@ -17,7 +19,7 @@ TEST_P(RandomizedTest, Sorting)
 
 std::vector<std::vector<int>> GenerateTestCases()
 {
-    std::vector<std::vector<int>> test_cases;
+    std::vector<TestInput> test_cases;
     std::numeric_limits<int> limits;
 
     std::mt19937 engine(time(0)); // Fixed seed of 0
@@ -26,12 +28,12 @@ std::vector<std::vector<int>> GenerateTestCases()
 
     size_t n = 10000;
     auto f = [&](){return element_dist(engine);};
-    for(size_t i = 0; i < n; ++i)
-    {
-        std::vector<int> vs;
-        std::generate_n(std::back_inserter(vs), range_dist(engine), f);
-        test_cases.push_back(vs);
-    }
+    std::generate_n(std::back_inserter(test_cases), n, 
+            [&](){ 
+            TestInput vs;
+            std::generate_n(std::back_inserter(vs), range_dist(engine), f);
+            return vs;
+            });
     return test_cases;
 }
 
