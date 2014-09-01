@@ -3,6 +3,8 @@
 #include <random>
 #include <limits>
 #include <cassert>
+#include <iostream>
+
 int main(int argc, const char *argv[])
 {
     std::numeric_limits<int> limits;

@@ -1,0 +1,18 @@
+Running main() from gtest_main.cc
+[==========] Running 10000 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 10000 tests from hw1/RandomizedTest
+[ RUN      ] hw1/RandomizedTest.Sorting/0
+[       OK ] hw1/RandomizedTest.Sorting/0 (2 ms)
+[ RUN      ] hw1/RandomizedTest.Sorting/1
+... Test output truncated for clarity ...
+[       OK ] hw1/RandomizedTest.Sorting/9997 (0 ms)
+[ RUN      ] hw1/RandomizedTest.Sorting/9998
+[       OK ] hw1/RandomizedTest.Sorting/9998 (1 ms)
+[ RUN      ] hw1/RandomizedTest.Sorting/9999
+[       OK ] hw1/RandomizedTest.Sorting/9999 (0 ms)
+[----------] 10000 tests from hw1/RandomizedTest (4576 ms total)
+
+[----------] Global test environment tear-down
+[==========] 10000 tests from 1 test case ran. (4578 ms total)
+[  PASSED  ] 10000 tests.

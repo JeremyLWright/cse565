@@ -22,22 +22,27 @@ std::vector<std::vector<int>> GenerateTestCases()
     std::vector<TestInput> test_cases;
     std::numeric_limits<int> limits;
 
-    std::mt19937 engine(time(0)); // Fixed seed of 0
+    std::mt19937 engine(time(0));
     std::uniform_int_distribution<int> range_dist(0,1500);
-    std::uniform_int_distribution<int> element_dist(0, limits.max());
+    std::uniform_int_distribution<int> element_dist(
+            limits.min(), 
+            limits.max());
 
     size_t n = 10000;
     auto f = [&](){return element_dist(engine);};
     std::generate_n(std::back_inserter(test_cases), n, 
             [&](){ 
             TestInput vs;
-            std::generate_n(std::back_inserter(vs), range_dist(engine), f);
+            std::generate_n(std::back_inserter(vs), 
+                range_dist(engine), 
+                f);
             return vs;
             });
     return test_cases;
 }
 
 INSTANTIATE_TEST_CASE_P(
-        GeneralAndSpecial,
-        RandomizedTest,
-        testing::ValuesIn(GenerateTestCases()));
+    hw1,
+    RandomizedTest,
+    testing::ValuesIn(GenerateTestCases())
+);

@@ -1,0 +1,156 @@
+\documentclass[12pt,journal]{article}
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{thesis.bib}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{afterpage}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsbsy}
+\usepackage{pdflscape}
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+% activate={true,nocompatibility} - activate protrusion and expansion
+% final - enable microtype; use "draft" to disable
+% tracking=true, kerning=true, spacing=true - activate these techniques
+% factor=1100 - add 10% to the protrusion amount (default is 1000)
+% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
+\usepackage{dcolumn,array}
+\usepackage{tocloft}
+\usepackage[section]{placeins}
+\usepackage[english]{babel}
+\usepackage{todonotes}
+\usepackage{blindtext}
+\usepackage{amsthm}
+\usepackage{setspace}
+\usepackage[babel=true]{csquotes}
+\blindmathtrue
+\usepackage[acronym]{glossaries}
+\usepackage[section]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\newtheorem{mydef}{Definition}
+
+\begin{document}
+\doublespace
+\title{Unit Test Frameworks \\ CSE 565 Assignment \#1}
+\author{Jeremy Wright - 1000738685}
+
+% make the title area
+\maketitle
+
+\section{Frameworks}
+Unit testing should be part of an overall test strategy to
+ensure product quality. Unit testing, forms the smallest indivisible unit. Test
+frameworks provide organization tools, to help the developer control the growing
+mass of tests.
+%\section{What is unit testing}
+%Wikipedia defines unit testing as testing, ``... a unit as the smallest testable
+%part of an application. \autocite{wikipedia_unit_2014}'' I posed this question
+%to a colleague of mine, and his response was, ``A unit test de-tangles
+%dependencies so one can test a submodules prior to merging it's functionality
+%with another module.'' \autocite{brandenburg}. I like this definition since it
+%attacks the heart of a problem.  There is a block of code that needs to be
+%tested, it could be large or small by you are concerned with its dependencies
+%prior to making the block larger. It speaks to the incremental, or even design
+%motivating potential of unit tests. I feel, when used properly, unit tests can
+%how motivate the design, since it forced one to think about the interface
+%up-front. The unit-test by design will use the interface, hence making it easy
+%to test, tends to make the module easier to understand.
+%
+%However, in practice unit testing can be a more visceral tool. While it does
+%function as a design tool, its greatest return on investment is its ability to
+%test edge conditions, and in a sense embarrassing bugs. Dr. Collofello asked in
+%class, ``What if a tester wrote the unit tests instead of the developer? Would
+%that be a good idea?''   My initial response was, those are my tests. Hence,
+%I now use Definition~\ref{def:person_unit_test}.
+%
+%\begin{mydef} 
+%    \label{def:person_unit_test}
+%A unit test is a test to provide the developer some confidence
+%a region of code works as intended before other people see the code and the
+%developer is open to mockery and scandal.
+%\end{mydef}
+
+A framework is by no means necessary to perform unit testing. One method of unit
+testing is to simply create separate executables for each test, and use simple
+asserts to check for pre and post conditions. This method makes command line
+debugging easier since each test is simply a basic executable. Test frameworks
+however are quite useful when you want integration with an IDE, or continuous
+integration system such as XML output for a build server. 
+
+A unit test framework however can be quite an enabler, since it doesn't forget
+to run all the tests. When not using such a framework, one has to setup some
+form of automation to ensure all tests are run with every build. Build systems
+such as autoconf, and CMake both support such automation, but sometimes it's
+nicer to have a test tool do the work, especially when you want to generates
+reports off the results.
+
+Frameworks are typically build time dependencies, and allow developers to
+annotate, or mark up their code in some manner. The test generation step then
+discovers tests and generates an executable.  Frameworks also provide
+organization tools called test suites which allow one to control SetUp, and
+TearDown of the suite, as well as which tests get grouped together.
+
+A favorite feature of mine I picked up from FPGA design is constrained random
+test generation \autocite{constrained}. Sorting functions are ideal candidates
+since there input domain is large, random test generation can expose test cases
+the developer may not have thought of directly.  Test frameworks which allow for
+generic programming, and runtime test generation are big motivators for me to
+use a test framework in my own designs.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l | c | c }
+        \hline
+        & JUnit \autocite{junit} & GTest \autocite{gtest}\\
+        \hline \hline
+        Language                 & Java  & C++ \\
+        Test Generation          & \checkmark \autocite{google_java_tools}
+        & \checkmark
+        (Section ~\ref{sec:source_code})\\
+        Build Server Integration & JUnit XML & Creates
+        JUnit compatible XML\\
+        IDE Integration          & Eclipse, IntelliJ  &  None \\
+        Generic Programming      & Java Generics  &  Templates\\
+        Randomization      & Override test runner  &  Test Shuffling\\
+        Test Discovery  & Annotations & Macros \\
+        Verification Technique & Assert Functions & Assert Macros \\
+        License &  Eclipse Public License Version 1.0 & BSD-3-Clause \\
+        Integration & Maven & Manual Compilation \\
+        \hline
+    \end{tabular}
+    \caption{Comparison of GTest and JUnit}
+    \label{tab:comparison}
+\end{table}
+
+\section{Part 2 Demonstration}
+The demonstration code verifies a simple selection sort algorithm.  It does so
+by generating 10,000 random test vectors. Each vector size is uniformly
+distributed between 0 and 1500 elements. Each element in the vector is uniformly
+distributed over the range of a 32-bit integer. Using this generated input data,
+Google Test instantiates 10,000 instances of the RandomizedTest class, and
+executes the tests. 
+\singlespace
+\subsection{Unit under test}
+\label{sec:source_code}
+\lstinputlisting[basicstyle=\ttfamily,language=c++]{sort.hpp}
+\subsection{Unit Test}
+\lstinputlisting[basicstyle=\ttfamily,language=c++]{test.cpp}
+\subsection{Unit Test Result}
+\lstinputlisting[basicstyle=\ttfamily]{test_output.result}
+\subsection{CMake Build Script}
+\lstinputlisting[basicstyle=\ttfamily]{CMakeLists.txt}
+
+\clearpage
+
+\printbibliography
+
+
+
+\end{document}
+
