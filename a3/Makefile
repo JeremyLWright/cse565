@@ -1,4 +1,4 @@
-main_tex=JEREMY_WRIGHT_A1.tex
+main_tex=JEREMY_WRIGHT_A3.tex
 
 main_pdf=$(patsubst %.tex,%.pdf,$(main_tex))
 tex_files=$(wildcard *.tex)

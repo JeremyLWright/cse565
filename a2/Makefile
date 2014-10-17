@@ -1,4 +1,4 @@
-main_tex=JEREMY_WRIGHT_A1.tex
+main_tex=JEREMY_WRIGHT_A2.tex
 
 main_pdf=$(patsubst %.tex,%.pdf,$(main_tex))
 tex_files=$(wildcard *.tex)
@@ -14,7 +14,7 @@ octave_figures=$(patsubst %.m,%.tex,$(octave_files))
 
 all: $(main_pdf) 
 
-$(main_pdf): $(main_tex) ../thesis.bib $(tex_files) $(dot_figures) $(svg_figures) $(octave_figures) 
+$(main_pdf): $(main_tex) Testing.bib $(tex_files) $(dot_figures) $(svg_figures) $(octave_figures) 
 
 personal.aspell: $(HOME)/.vim/spell/en.utf-8.add
 	aspell --lang=en create master ./personal.aspell < ~/dotfiles/vim/spell/en.utf-8.add
