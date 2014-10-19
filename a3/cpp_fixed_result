@@ -1,0 +1,3 @@
+jwright@PhaseShift:~/art/cse565/a3$ cppcheck cppcheck_test_code_fixed.c 
+Checking cppcheck_test_code_fixed.c...
+

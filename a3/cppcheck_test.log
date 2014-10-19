@@ -1,0 +1,5 @@
+jwright@PhaseShift:~/art/cse531$ cppcheck --enable=style thread_test.c 
+Checking thread_test.c...
+[thread_test.c:100]: (style) Variable 'i' is not assigned a value.
+[thread_test.c:113]: (error) Uninitialized variable: i
+

@@ -1,0 +1,42 @@
+env:
+    global:
+    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+    #   via the "travis encrypt" command using the project repo's public key
+    - secure: "EsAos9ygqYkxMomz2mI9crMl1Wty21+8YsE6ehHb8XmTcs8IiLSQJzLouz27NjZuIBtEfVgNweIJ4qhizNFjBN7mbb0mFNGzPVsPijh1ew9AufPy9WCrtAfKllxTAEANUehA7PokzuZcAefnZuzzSxrXke3MQp0lNoMqPYus8Rk="
+    matrix:
+        - BUILD_SYSTEM=cmake
+
+
+addons:
+  coverity_scan:
+    project:
+        name: "jwright85/cse531"
+        description: "CSE531 User Threads"
+    notification_email: jeremy@quiescent.us
+    build_command_prepend: "mkdir -p build && cd build && cmake .."
+    build_command:  "cmake --build ."
+    branch_pattern: master
+
+
+language: cpp
+compiler:
+- gcc
+before_install:
+ # g++4.8.1
+ - sudo apt-get install libboost-dev
+ - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+ - sudo apt-get update -qq
+
+install:
+ # g++4.8.1
+ - sudo apt-get install -qq g++-4.8
+ - export CXX="g++-4.8"
+
+before_script:
+    - mkdir build
+
+script: 
+    - cd build && cmake .. && cmake --build .
+
+after_script:
+    - ctest -V .

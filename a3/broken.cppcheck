@@ -1,0 +1,6 @@
+jwright@PhaseShift:~/art/cse565/a3$ cppcheck --enable=all sort_broken.hpp 
+Checking sort_broken.hpp...
+[sort_broken.hpp:4]: (style) Unused variable: i
+[sort_broken.hpp:4]: (style) Variable 'j' is assigned a value that is never used.
+Checking usage of global functions..
+
