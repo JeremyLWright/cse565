@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="2" failures="0" disabled="0" errors="0" timestamp="2014-10-26T10:16:59" time="5.628" name="AllTests">
+  <testsuite name="Regression" tests="1" failures="0" disabled="0" errors="0" time="5.627">
+    <testcase name="Sort" status="run" time="5.627" classname="Regression" />
+  </testsuite>
+  <testsuite name="hw1/RandomizedTest" tests="1" failures="0" disabled="0" errors="0" time="0.001">
+    <testcase name="Sorting/0" value_param="{ 659191508, 801938579, -1407008693, -615023080, -1315992710, -1341758170, 1579226193, -1263520905, 1385267858, 550287216, -1861866399, -2117894754, -44567005, 164355508, -2115801829, -791051087, -2012218204, 1580296338, -2021647672, 1310388182, 2060843980, -569990576, -1531081328, 1730921100, 235212759, -541288384, 1292236067, -607951567, -424647030, -1595696123, -678059896, 2065368890, ... }" status="run" time="0.001" classname="hw1/RandomizedTest" />
+  </testsuite>
+</testsuites>
