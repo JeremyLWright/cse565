@@ -1,0 +1,98 @@
+\documentclass[12pt,journal]{article}
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{Testing.bib}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{afterpage}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsbsy}
+\usepackage{pdflscape}
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+% activate={true,nocompatibility} - activate protrusion and expansion
+% final - enable microtype; use "draft" to disable
+% tracking=true, kerning=true, spacing=true - activate these techniques
+% factor=1100 - add 10% to the protrusion amount (default is 1000)
+% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
+\usepackage{dcolumn,array}
+\usepackage{tocloft}
+\usepackage[section]{placeins}
+\usepackage[english]{babel}
+\usepackage{todonotes}
+\usepackage{blindtext}
+\usepackage{amsthm}
+\usepackage{setspace}
+\usepackage[babel=true]{csquotes}
+\blindmathtrue
+\usepackage[acronym]{glossaries}
+\usepackage[section]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{color}
+\newtheorem{mydef}{Definition}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\ttfamily\footnotesize\setstretch{1},        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+}
+
+
+
+\begin{document}
+\doublespace
+\title{Performance Regression Testing\\ CSE 565 Assignment \#4}
+\author{Jeremy Wright - 1000738685}
+
+% make the title area
+\maketitle
+
+\section{Performance Regression Testing}
+For the area of Performance Regression testing, several tools exist. Among them
+are valgrind \autocite{_valgrind_2014}, KcacheGrind
+\autocite{_kcachegrind_????}, gcc's gprof \autocite{_gnu_????},  Intel VTune
+\autocite{_vtune_2014}. Each of these
+tools measure system performance. Test-Driven-Development encourages unit-tests
+to play a role in regression testing \autocite{_regression_2014}. Thus this
+paper will demonstrate how to use existing unit tests to categorize, and
+measure performance over time. 
+
+\section{Callgrind}
+Callgrind is a tool within the Valgrind suite for performance profiling. It
+leverages Valgrind's unique libc injection technique to capture calls and
+measure their performance. While valgrind is typically thought of as a memory
+tool, its role as a performance tool cannot be overstated. Performance regression testing
+assures that code which used to work at a previous performance level, currently works at
+least at good or better \autocite{_regression_2014}. This is critically
+important for hard real-time systems where the performance level typically
+directly relates to the safety of the product. 
+
+Callgrind can be combined with Unit-Tests to evaluate this critical performance
+gradient. Initially one has to measure a baseline of performance from which
+future measurements are graded. A unit-test should be written which captures the
+essence of the metric to be evaluated. 
+
+
+\lstinputlisting[language=bash,label={lst:run_callgrind},caption={Running
+callgrind on the command line.}]{run_callgrind.sh}
+
+
+\clearpage
+\printbibliography
+
+\end{document}
+
